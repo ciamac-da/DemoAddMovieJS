@@ -30,8 +30,13 @@ const renderMovies = (filter = "") => {
 
     //I commented out because  i wanna use bind(this) instead
     let {getFormattedTitle} = movie;
-    getFormattedTitle = getFormattedTitle.bind(movie)
-    let text = movie.getFormattedTitle() + "-"; 
+    //getFormattedTitle = getFormattedTitle.bind(movie)
+    //well I can use call method instead of bind 
+    // difference between bind and call is that bind preapares for future execution and returns a new function object at the end  but call executrs function right away
+    //let text = movie.getFormattedTitle() + "-"; 
+    // we can also use apply() method . in apply you use [] for other arguments but in call , , , 
+    // apply(movie, []) call(movie, , ,)
+    let text = getFormattedTitle.call(movie) + "-"; 
     for(const key in movie.info){
       if(key !== "title"){
         text = text + `${key}: ${info[key]}`;
