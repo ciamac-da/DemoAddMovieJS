@@ -23,8 +23,12 @@ const renderMovies = (filter = "") => {
     // didnt pull by name 
     const {info, ...otherProps} = movie;
     // the same here for info object
-    const {title} = info;
-    let text = title + "-";
+    // i dont need this for now i do that in other way using this
+    //const {title} = info;
+    // i defined getFormattedTitle below
+    //const {getFormattedTitle} = movie;
+
+    let text = movie.getFormattedTitle() + "-";
     for(const key in movie.info){
       if(key !== "title"){
         text = text + `${key}: ${info[key]}`;
@@ -53,7 +57,12 @@ const addMovieHandler = () => {
       title,
       [extraName]: extraValue
     },
-    id: Math.random().toString()
+    id: Math.random().toString(),
+    // could be better if I use this 
+    // therefore I can call info object everywhere calling getFormattedTItle
+    getFormattedTitle: function(){
+     return this.info.title.toUpperCase();
+    }
   };
 
   movies.push(newMovie);
