@@ -28,7 +28,10 @@ const renderMovies = (filter = "") => {
     // i defined getFormattedTitle below
     //const {getFormattedTitle} = movie;
 
-    let text = movie.getFormattedTitle() + "-";
+    //I commented out because  i wanna use bind(this) instead
+    let {getFormattedTitle} = movie;
+    getFormattedTitle = getFormattedTitle.bind(movie)
+    let text = movie.getFormattedTitle() + "-"; 
     for(const key in movie.info){
       if(key !== "title"){
         text = text + `${key}: ${info[key]}`;
@@ -60,9 +63,13 @@ const addMovieHandler = () => {
     id: Math.random().toString(),
     // could be better if I use this 
     // therefore I can call info object everywhere calling getFormattedTItle
-    getFormattedTitle: function(){
-     return this.info.title.toUpperCase();
-    }
+    //getFormattedTitle: function(){
+    // return this.info.title.toUpperCase();
+    //}
+    // i wanna use bind(this)instead
+    getFormattedTitle(){
+      return this.info.title.toUpperCase();
+     }
   };
 
   movies.push(newMovie);
