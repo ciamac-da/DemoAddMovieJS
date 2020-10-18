@@ -18,10 +18,16 @@ const renderMovies = (filter = "") => {
   const filteredMovies = !filter ? movies : movies.filter(movie=>movie.info.title.includes(filter))
   filteredMovies.forEach((movie) => {
     const movieEl = document.createElement('li');
-    let text = movie.info.title + "-";
+    // to pull info value from movie object to avoid duplicated code
+    // we can also use rest parameter ...otherProps and this will now collect all properties which you
+    // didnt pull by name 
+    const {info, ...otherProps} = movie;
+    // the same here for info object
+    const {title} = info;
+    let text = title + "-";
     for(const key in movie.info){
       if(key !== "title"){
-        text = text + `${key}: ${movie.info[key]}`;
+        text = text + `${key}: ${info[key]}`;
       }
     } 
     movieEl.textContent = text;
@@ -47,7 +53,7 @@ const addMovieHandler = () => {
       title,
       [extraName]: extraValue
     },
-    id: Math.random()
+    id: Math.random().toString()
   };
 
   movies.push(newMovie);
